@@ -231,31 +231,34 @@
       }
 
       work() {
-        if (this.ants.length === 0) {
-            return "No ants here. Did you work them to death?";
-        }
+      if (this.ants.length === 0) {
+        return "No ants here. Did you work them to death?";
+      }
 
-        this.ants.forEach(ant => {
-            ant.health -= 20;
-            if (ant.health <= 0) {
-                this.ants = this.ants.filter(a => a !== ant);
-            }
-        });
+      this.ants = this.ants.filter(ant => {
+        ant.health -= 20;
+        return ant.health > 0;
+      });
 
-        return `${this.ants.length} ants starting work!`;
+      return `${this.ants.length} ants starting work!`;
       }
 
       feed(name) {
-        const antToFeed = this.ants.find(ant => ant.name === name);
+    let antFound = false;
 
-        if (antToFeed) {
-            antToFeed.health += 15;
-            return "Yum!";
-        } else {
-            return `${name} not found!`;
-        }
-      }
-      }
+    this.ants.forEach(ant => {
+    if (ant.name === name) {
+      ant.health += 15;
+      antFound = true;
+    }
+    });
+
+    if (antFound) {
+    return "Yum!";
+    } else {
+    return `${name} not found!`;
+    }
+    }}
 
     // 🧪 TESTS, do not make any changes below this line ===================
     // 🧪 TESTS, do not make any changes below this line ===================
